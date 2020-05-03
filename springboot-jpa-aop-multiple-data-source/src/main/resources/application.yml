@@ -1,0 +1,49 @@
+server:
+  port: 8081
+
+# 主数据源
+spring:
+  datasource:
+#    driverClassName: com.mysql.cj.jdbc.Driver
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/db1?charset=utf8mb4&useSSL=false
+    username: root
+    password: 123456
+  main:
+    allow-bean-definition-overriding: true
+
+  jpa:
+    database: MYSQL
+    database-plinatform: org.hibernate.dialect.MySQL5InnoDBDialect
+    show-sql: true
+    generate-ddl: true
+    open-in-view: false
+
+    hibernate:
+      ddl-auto: update
+    #       naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+    properties:
+      #不加此配置，获取不到当前currentsession
+      hibernate:
+        current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
+        dialect: org.hibernate.dialect.MySQL5Dialect
+# 多数据源配置
+com:
+  mao:
+    boot:
+      #主动开启多数据源
+      multiDatasourceOpen: true
+      datasource[0]:
+        dbName: second
+#        driverClassName: com.mysql.cj.jdbc.Driver
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3306/db1?charset=utf8mb4&useSSL=false
+        username: root
+        password: 123456
+      datasource[1]:
+        dbName: third
+#        driverClassName: com.mysql.cj.jdbc.Driver
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3306/db2?charset=utf8mb4&useSSL=false
+        username: root
+        password: 123456
